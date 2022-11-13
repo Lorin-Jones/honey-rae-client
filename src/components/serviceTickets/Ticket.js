@@ -39,8 +39,22 @@ export const Ticket = () => {
         ).then(() => history.push("/tickets"))
     }
 
+ 
+
     const updateTicket = (evt) => {
         const updatedTicket = {...ticket, employee: parseInt(evt.target.value)}
+
+        fetchIt(
+            `http://localhost:8000/tickets/${ticketId}`,
+            {
+                method: "PUT",
+                body: JSON.stringify(updatedTicket)
+            }
+        ).then(fetchTicket)
+    }
+
+    const completeTicket = (evt) => {
+        const updatedTicket = {...ticket, date_completed: Date.now()}
 
         fetchIt(
             `http://localhost:8000/tickets/${ticketId}`,
@@ -99,7 +113,7 @@ export const Ticket = () => {
                     </div>
                     {
                         isStaff()
-                            ? ""
+                            ? <button onClick={completeTicket}>Done</button>
                             : <button onClick={deleteTicket}>Delete</button>
                     }
                 </footer>
