@@ -54,7 +54,7 @@ export const Ticket = () => {
     }
 
     const completeTicket = (evt) => {
-        const updatedTicket = {...ticket, date_completed: Date.now()}
+        const updatedTicket = {...ticket, date_completed: new Date().toLocaleDateString('en-CA')}
 
         fetchIt(
             `http://localhost:8000/tickets/${ticketId}`,
